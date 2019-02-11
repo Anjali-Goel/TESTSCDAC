@@ -7,7 +7,8 @@ void tabspace(FILE* fp)
 		inp = fgetc(fp);
 		if (inp == "	")
 		{
-			fputc("\t",fp);
+			fputc('\\',fp);
+			fputc('t', fp);
 		}
 	}
 }

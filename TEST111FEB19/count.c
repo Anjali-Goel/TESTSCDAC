@@ -18,4 +18,5 @@ void count(FILE* fp)
 			;//ELSE DOING NOTHING HENCE NO EXPRESSION
 	}
 	printf("\nALPHABETS = %d\nDIGITS = %d\nSPACES = %d\nSPECIAL CHARACTERS = %d", alph, dig, spaces, spech);
+	fclose(fp);
 }

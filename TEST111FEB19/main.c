@@ -6,7 +6,6 @@ void tabspace(FILE*);
 main()
 {
 	int task;
-	char fname[30];
 	char ex;
 	FILE* fp = NULL;
 	printf("\n***TASK LIST***");

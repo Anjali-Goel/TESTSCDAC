@@ -2,14 +2,38 @@
 #include<string.h>
 void removecomm(FILE* fp)
 {
-	char out[3];
+	long int i, p, j;
+	char ch;
 	while (!feof(fp))
 	{
-		fgets(out, 2, fp);//scanf two characters at a time from the file
-		if (out == "//" || out == "/*")//checks for the starting of the comment line
+		ch = fget(fp);
+		if ( ch == 47 )//checks for the starting of the comment line
 		{
-			while (out != "\n" || out != "*/")//till the end of the comment line is reached
-				fputc("\0",fp);               //replaces the characters with null character
+			ch = fgetc(fp);
+			if (ch == 47 || ch == 34)//check for start of single line or double line comment
+			{
+				i = ftell(fp);//TO NOTE THE POSTION OF fP,points to character after // or /* 
+				ch = fgetc(fp);
+				if (ch == '\n')//for a single line comment
+				{
+					p = ftell(fp);//points to next line comment
+					fseek(fp, i - 3, 0);//positioning to first slash of single line comment
+					for (j = i - 2; j < p; ++j)
+					{
+						fprintf(fp,"%c",'\0'); //replacing the characters of single line comment with null character
+					}
+				}
+				else if (ch == '*')//for double line comment
+				{
+					p = ftell(fp);//points to / at the end of the comment
+					fseek(fp, i - 3, 0);//positions to starting / of the comment 
+					for (j = i - 2; j <= p ; ++j)
+					{
+						fprintf(fp,"%c",'\0');//replacing the characters of double line comment with null character
+					}
+				}
+			}
 		}
 	}
+	fclose(fp);
 }
